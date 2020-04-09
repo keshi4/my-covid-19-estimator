@@ -3,6 +3,7 @@
 function covid19ImpactEstimator($data)
 {
     $dataDecode = json_decode(json_encode($data));
+    //$dataDecode = json_decode($data);
     //$dataDecode = json_decode($data, true);
     $name = $dataDecode->{'region'}->{'name'}; //$dataDecode['region']['name'];
     $avgAge = $dataDecode->{'region'}->{'avgAge'}; //$dataDecode['region']['avgAge'];
@@ -20,23 +21,35 @@ function covid19ImpactEstimator($data)
     switch ($periodType){
     case 'days':
             $factor = floor(($timeToElapse * 1) / 3);
+            $dayPeriod = $timeToElapse * 1;
         break;
     case 'weeks':
         $factor = floor(($timeToElapse * 7) / 3);
+        $dayPeriod = $timeToElapse * 7;
         break;
     case 'months':
         $factor = floor(($timeToElapse * 30) / 3);
+        $dayPeriod = $timeToElapse * 30;
         break;
     }
 
     //Output Estimate for impact
     $impact_currentlyInfected = $reportedCases * 10;
     $impact_infectionsByRequestedTime = $impact_currentlyInfected * pow(2, $factor);
+    $impact_severeCasesByRequestedTime = floor($impact_infectionsByRequestedTime * (15/100));
+    $impact_hospitalBedsByRequestedTime = floor(($totalHospitalBeds * (35/100)) - $impact_severeCasesByRequestedTime);
+    $impact_casesForICUByRequestedTime = floor($impact_infectionsByRequestedTime * (5/100));
+    $impact_casesForVentilatorsByRequestedTime = floor($impact_infectionsByRequestedTime * (2/100));
+    $impact_dollarsInFlight = round($impact_infectionsByRequestedTime * $avgDailyIncomePopulation * $avgDailyIncomeInUSD * $dayPeriod, 2);
 
     //Output Estimate for severeImpact
     $severeImpact_currentlyInfected = $reportedCases * 50;
-    $severeImpact_infectionsByRequestedTime = $severeImpact_currentlyInfected * pow(2, $factor);    
-
+    $severeImpact_infectionsByRequestedTime = $severeImpact_currentlyInfected * pow(2, $factor);
+    $severeCasesByRequestedTime = floor($severeImpact_infectionsByRequestedTime * (15/100));
+    $severe_hospitalBedsByRequestedTime = floor(($totalHospitalBeds * (35/100)) - $severeCasesByRequestedTime);
+    $severe_casesForICUByRequestedTime = floor($severeImpact_infectionsByRequestedTime * (5/100));
+    $severe_casesForVentilatorsByRequestedTime = floor($severeImpact_infectionsByRequestedTime * (2/100));
+    $severe_dollarsInFlight = round($severeImpact_infectionsByRequestedTime * $avgDailyIncomePopulation * $avgDailyIncomeInUSD * $dayPeriod, 2);
     /**
      Return Output
     {
@@ -47,8 +60,8 @@ function covid19ImpactEstimator($data)
      */
     $dataOuput = array();
     $dataOuput['data'] = $dataDecode;
-    $dataOuput['impact'] = array('currentlyInfected' => $impact_currentlyInfected, 'infectionsByRequestedTime' => $impact_infectionsByRequestedTime);
-    $dataOuput['severeImpact'] = array('currentlyInfected' => $severeImpact_currentlyInfected, 'infectionsByRequestedTime' => $severeImpact_infectionsByRequestedTime);
+    $dataOuput['impact'] = array('currentlyInfected' => $impact_currentlyInfected, 'infectionsByRequestedTime' => $impact_infectionsByRequestedTime, 'severeCasesByRequestedTime' => $impact_severeCasesByRequestedTime,'hospitalBedsByRequestedTime' => $impact_hospitalBedsByRequestedTime,'casesForICUByRequestedTime' => $impact_casesForICUByRequestedTime,'casesForVentilatorsByRequestedTime' => $impact_casesForVentilatorsByRequestedTime,'dollarsInFlight' => $impact_dollarsInFlight);
+    $dataOuput['severeImpact'] = array('currentlyInfected' => $severeImpact_currentlyInfected, 'infectionsByRequestedTime' => $severeImpact_infectionsByRequestedTime,'severeCasesByRequestedTime' => $severeCasesByRequestedTime,'hospitalBedsByRequestedTime' => $severe_hospitalBedsByRequestedTime,'casesForICUByRequestedTime' => $severe_casesForICUByRequestedTime,'casesForVentilatorsByRequestedTime' => $severe_casesForVentilatorsByRequestedTime,'dollarsInFlight' => $severe_dollarsInFlight);
     //return json_encode($dataOuput);
     return $dataOuput;
 }
