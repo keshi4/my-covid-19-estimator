@@ -20,15 +20,15 @@ function covid19ImpactEstimator($data)
     //Estimate the number of infected by x (28)days, note that currentlyInfected doubles every 3 days
     switch ($periodType){
     case 'days':
-            $factor = intval(($timeToElapse * 1) / 3);
+            $factor = ($timeToElapse * 1) / 3;
             $dayPeriod = $timeToElapse * 1;
         break;
     case 'weeks':
-        $factor = intval(($timeToElapse * 7) / 3);
+        $factor = ($timeToElapse * 7) / 3;
         $dayPeriod = $timeToElapse * 7;
         break;
     case 'months':
-        $factor = intval(($timeToElapse * 30) / 3);
+        $factor = ($timeToElapse * 30) / 3;
         $dayPeriod = $timeToElapse * 30;
         break;
     }
