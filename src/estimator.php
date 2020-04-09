@@ -2,17 +2,18 @@
 
 function covid19ImpactEstimator($data)
 {
-    $dataDecode = json_decode($data, true);
-    $name = $dataDecode['region']['name'];
-    $avgAge = $dataDecode['region']['avgAge'];
-    $avgDailyIncomeInUSD = $dataDecode['region']['avgDailyIncomeInUSD'];
-    $avgDailyIncomePopulation = $dataDecode['region']['avgDailyIncomePopulation'];
+    $dataDecode = json_decode($data);
+    //$dataDecode = json_decode($data, true);
+    $name = $dataDecode->{'region'}->{'name'}; //$dataDecode['region']['name'];
+    $avgAge = $dataDecode->{'region'}->{'avgAge'}; //$dataDecode['region']['avgAge'];
+    $avgDailyIncomeInUSD = $dataDecode->{'region'}->{'avgDailyIncomeInUSD'}; //$dataDecode['region']['avgDailyIncomeInUSD'];
+    $avgDailyIncomePopulation = $dataDecode->{'region'}->{'avgDailyIncomePopulation'}; //$dataDecode['region']['avgDailyIncomePopulation'];
 
-    $periodType = $dataDecode['periodType'];
-    $timeToElapse = $dataDecode['timeToElapse'];
-    $reportedCases = $dataDecode['reportedCases'];
-    $population = $dataDecode['population'];
-    $totalHospitalBeds = $dataDecode['totalHospitalBeds'];    
+    $periodType = $dataDecode->{'periodType'}; //$dataDecode['periodType'];
+    $timeToElapse = $dataDecode->{'timeToElapse'}; //$dataDecode['timeToElapse'];
+    $reportedCases = $dataDecode->{'reportedCases'}; //$dataDecode['reportedCases'];
+    $population = $dataDecode->{'population'}; //$dataDecode['population'];
+    $totalHospitalBeds = $dataDecode->{'totalHospitalBeds'}; //$dataDecode['totalHospitalBeds'];
 
     //infected factor = No_days / double_day
     //Estimate the number of infected by x (28)days, note that currentlyInfected doubles every 3 days
@@ -51,7 +52,7 @@ function covid19ImpactEstimator($data)
     return json_encode($dataOuput);
 }
 /**
-///Testing data
+///Testing data 
 $reportedCases = '{
   "region":{
     "name":"Africa",
