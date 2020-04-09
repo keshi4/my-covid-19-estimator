@@ -49,7 +49,8 @@ function covid19ImpactEstimator($data)
     $dataOuput['data'] = $dataDecode;
     $dataOuput['impact'] = array('currentlyInfected' => $impact_currentlyInfected, 'infectionsByRequestedTime' => $impact_infectionsByRequestedTime);
     $dataOuput['severeImpact'] = array('currentlyInfected' => $severeImpact_currentlyInfected, 'infectionsByRequestedTime' => $severeImpact_infectionsByRequestedTime);
-    return json_encode($dataOuput);
+    //return json_encode($dataOuput);
+    return $dataOuput;
 }
 /**
 ///Testing data 
@@ -68,5 +69,5 @@ $reportedCases = '{
 }';
 header("Content-Type: application/json");
 echo covid19ImpactEstimator($reportedCases);
- */
+*/
 ?>
