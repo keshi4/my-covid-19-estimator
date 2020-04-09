@@ -2,7 +2,7 @@
 
 function covid19ImpactEstimator($data)
 {
-    $dataDecode = json_decode($data);
+    $dataDecode = json_decode(json_encode($data));
     //$dataDecode = json_decode($data, true);
     $name = $dataDecode->{'region'}->{'name'}; //$dataDecode['region']['name'];
     $avgAge = $dataDecode->{'region'}->{'avgAge'}; //$dataDecode['region']['avgAge'];
