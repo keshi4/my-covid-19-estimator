@@ -58,8 +58,6 @@ function covid19ImpactEstimator($data)
         severeImpact: {} // your severe case estimation
     }
      */
-    $dataOuput = array();
-    $dataOuput['data'] = $dataDecode;
     $impactData = array('currentlyInfected' => $impact_currentlyInfected, 
       'infectionsByRequestedTime' => $impact_infectionsByRequestedTime,
       'severeCasesByRequestedTime' => $impact_severeCasesByRequestedTime,
@@ -76,7 +74,7 @@ function covid19ImpactEstimator($data)
     'casesForVentilatorsByRequestedTime' => $severe_casesForVentilatorsByRequestedTime,
     'dollarsInFlight' => $severe_dollarsInFlight
     );
-    $dataOuput['estimate'] = array('impact' => $impactData, 'severeImpact' => $severeImpactData);
+    $dataOuput = array('data' => $dataDecode, 'impact' => $impactData, 'severeImpact' => $severeImpactData);
     //return json_encode($dataOuput);
     return $dataOuput;
 }
