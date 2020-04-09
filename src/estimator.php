@@ -82,7 +82,7 @@ function covid19ImpactEstimator($data)
 ///Testing data 
 $reportedCases = '{
   "region":{
-    "name":"Africa",
+    "name":"Africa",  
     "avgAge":19.7,
     "avgDailyIncomeInUSD":4,
     "avgDailyIncomePopulation":0.87
