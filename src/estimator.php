@@ -35,7 +35,7 @@ function covid19ImpactEstimator($data)
     $impact_currentlyInfected = $reportedCases * 10;
     $impact_infectionsByRequestedTime = $impact_currentlyInfected * pow(2, $factor);
     $impact_severeCasesByRequestedTime = $impact_infectionsByRequestedTime * (15/100);
-    $impact_hospitalBedsByRequestedTime = intval(($totalHospitalBeds * (35/100))) - $impact_severeCasesByRequestedTime;
+    $impact_hospitalBedsByRequestedTime = intval(($totalHospitalBeds * (35/100)) - $impact_severeCasesByRequestedTime);
     $impact_casesForICUByRequestedTime = $impact_infectionsByRequestedTime * (5/100);
     $impact_casesForVentilatorsByRequestedTime = $impact_infectionsByRequestedTime * (2/100);
     $impact_dollarsInFlight = round(($impact_infectionsByRequestedTime * $avgDailyIncomePopulation * $avgDailyIncomeInUSD) / $dayPeriod, 2);
@@ -44,7 +44,7 @@ function covid19ImpactEstimator($data)
     $severeImpact_currentlyInfected = $reportedCases * 50;
     $severeImpact_infectionsByRequestedTime = $severeImpact_currentlyInfected * pow(2, $factor);
     $severeCasesByRequestedTime = $severeImpact_infectionsByRequestedTime * (15/100);
-    $severe_hospitalBedsByRequestedTime = intval(($totalHospitalBeds * (35/100))) - $severeCasesByRequestedTime;
+    $severe_hospitalBedsByRequestedTime = intval(($totalHospitalBeds * (35/100)) - $severeCasesByRequestedTime);
     $severe_casesForICUByRequestedTime = $severeImpact_infectionsByRequestedTime * (5/100);
     $severe_casesForVentilatorsByRequestedTime = $severeImpact_infectionsByRequestedTime * (2/100);
     $severe_dollarsInFlight = round(($severeImpact_infectionsByRequestedTime * $avgDailyIncomePopulation * $avgDailyIncomeInUSD) / $dayPeriod, 2);
