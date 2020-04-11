@@ -78,23 +78,4 @@ function covid19ImpactEstimator($data)
     //return json_encode($dataOuput);
     return $dataOuput;
 }
-/**
-///Testing data 
-$reportedCases = '{
-  "region":{
-    "name":"Africa",
-    "avgAge":19.7,
-    "avgDailyIncomeInUSD":4,
-    "avgDailyIncomePopulation":0.87
-  },
-  "periodType":"weeks",
-  "timeToElapse":19,
-  "reportedCases":2884,
-  "population":119675889,
-  "totalHospitalBeds":1653977
-
-  }';
-header("Content-Type: application/json");
-echo covid19ImpactEstimator($reportedCases);
-*/
 ?>
