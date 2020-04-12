@@ -15,7 +15,7 @@ function covid19ImpactEstimator($data)
     $population = $dataDecode->{'population'}; 
     $totalHospitalBeds = $dataDecode->{'totalHospitalBeds'}; 
 
-    //infected factor = No_days / double_day
+    //infected factor = No_days / double_day 
     switch ($periodType){
     case 'days':
             $factor = intval(($timeToElapse * 1) / 3);
