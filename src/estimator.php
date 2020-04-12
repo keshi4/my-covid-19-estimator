@@ -29,8 +29,7 @@ function covid19ImpactEstimator($data)
         $factor = intval(($timeToElapse * 30) / 3);
         $dayPeriod = $timeToElapse * 30;
         break;
-    }
-    //echo intval(-380518984140139200.65);  
+    } 
     //Output Estimate for impact
     $impact_currentlyInfected = $reportedCases * 10;
     $impact_infectionsByRequestedTime = $impact_currentlyInfected * pow(2, $factor);
@@ -49,14 +48,7 @@ function covid19ImpactEstimator($data)
     $severe_casesForVentilatorsByRequestedTime = floor($severeImpact_infectionsByRequestedTime * (2/100));
     $severe_dollarsInFlight = floor(($severeImpact_infectionsByRequestedTime * $avgDailyIncomePopulation * $avgDailyIncomeInUSD) / $dayPeriod);
     
-    /**
-     Return Output
-    {
-        data: {}, // the input data you got
-        impact: {}, // your best case estimation  
-        severeImpact: {} // your severe case estimation   
-    }
-     */
+    
     $impactData = array('currentlyInfected' => $impact_currentlyInfected, 
       'infectionsByRequestedTime' => $impact_infectionsByRequestedTime,
       'severeCasesByRequestedTime' => $impact_severeCasesByRequestedTime,
